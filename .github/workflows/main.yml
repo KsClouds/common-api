@@ -30,7 +30,7 @@ jobs:
         username: root
         password: ${{ secrets.SSH_PWD }}
         port: 22
-        source: "home"
+        source: "common_api"
         target: "/root"
       
     - name: copy file via ssh password
