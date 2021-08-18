@@ -1,4 +1,4 @@
-module common_api
+module common
 
 go 1.16
 

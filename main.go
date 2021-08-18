@@ -1,8 +1,8 @@
 package main
 
 import (
-	"common_api/crawler/dujitang"
-	"common_api/crawler/weather"
+	"common/crawler/dujitang"
+	"common/crawler/weather"
 	"flag"
 	"log"
 	"time"

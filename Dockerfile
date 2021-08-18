@@ -1,7 +1,7 @@
 FROM alpine
 
-COPY ./common_api /tmp/common_api
+COPY ./common /tmp/common
 
 WORKDIR /tmp/
 
-RUN chmod +x common_api
+RUN chmod +x common
