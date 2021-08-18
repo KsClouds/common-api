@@ -61,4 +61,4 @@ jobs:
           docker rm kecommon
           docker rmi kecommon
           docker build -t kecommon .
-          docker run -d --restart unless-stopped --name=kecommon kecommon ./common
+          docker run -d --restart unless-stopped -p 9001:9001 --name=kecommon kecommon ./common
