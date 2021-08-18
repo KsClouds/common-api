@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	addr     = flag.String("addr", "kisia:9001", "server address")
+	addr     = flag.String("addr", "localhost:9001", "server address")
 	zkAddr   = flag.String("zkAddr", "111.230.25.75:2181", "zookeeper address")
 	basePath = flag.String("base", "/common_api", "prefix path")
 )
