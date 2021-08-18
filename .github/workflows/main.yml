@@ -1,0 +1,63 @@
+name: Go
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.16
+
+    - name: Build
+      run: go build
+      env:
+        CGO_ENABLED: 0
+      
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{secrets.HOST}}
+        username: root
+        password: ${{ secrets.SSH_PWD }}
+        port: 22
+        source: "home"
+        target: "/root"
+      
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{secrets.HOST}}
+        username: root
+        password: ${{ secrets.SSH_PWD }}
+        port: 22
+        source: "Dockerfile"
+        target: "/root"
+        
+    - name: multiple command
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{secrets.HOST}}
+        username: root
+        password: ${{ secrets.SSH_PWD }}
+        port: 22
+        script: |
+          cd /home/go/common_api
+          rm -rf common_api
+          rm -rf Dockfile
+          mv /root/common_api ./
+          mv /root/Dockerfile ./
+          docker stop kecommon_api
+          docker rm kecommon_api
+          docker rmi kecommon_api
+          docker build -t kecommon_api .
+          docker run -d --restart unless-stopped --name=kecommon_api kecommon_api ./common_api
