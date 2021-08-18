@@ -13,7 +13,6 @@ import (
 )
 
 var (
-	addr     = flag.String("addr", "localhost:9001", "server address")
 	zkAddr   = flag.String("zkAddr", "111.230.25.75:2181", "zookeeper address")
 	basePath = flag.String("base", "/common_api", "prefix path")
 )
@@ -26,12 +25,11 @@ func main() {
 	addRegistryPlugin(s)
 	s.Register(new(weather.Weather), "")
 	s.Register(new(dujitang.Dujitang), "")
-	s.Serve("tcp", *addr)
+	s.Serve("tcp", ":9001")
 }
 
 func addRegistryPlugin(s *server.Server) {
 	r := &serverplugin.ZooKeeperRegisterPlugin{
-		ServiceAddress:   "tcp@" + *addr,
 		ZooKeeperServers: []string{*zkAddr},
 		BasePath:         *basePath,
 		Metrics:          metrics.NewRegistry(),
