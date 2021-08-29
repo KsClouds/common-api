@@ -34,6 +34,9 @@ func getPinyin(area string) (pinyin string) {
 	})
 	c.Visit(url)
 	c.Wait()
+	if len(pinyin) == 0 {
+		pinyin = area
+	}
 	return
 }
 
