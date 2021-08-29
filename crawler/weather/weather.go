@@ -52,7 +52,6 @@ func getWeather(area string) (weather string) {
 	url := "https://www.tianqi.com/" + pinyin + "/7/"
 
 	c := colly.NewCollector()
-	weather += area + "\n"
 	c.OnHTML("ul[class='weaul']", func(h *colly.HTMLElement) {
 		h.ForEach("li", func(i int, h *colly.HTMLElement) {
 			if i <= 2 {
