@@ -41,7 +41,10 @@ func getPinyin(area string) (pinyin string) {
 }
 
 func getWeather(area string) (weather string) {
-	pinyin := getPinyin(area)
+	pinyin := area
+	if len([]rune(area)) != len(area) {
+		pinyin = getPinyin(area)
+	}
 	fmt.Println(pinyin)
 	if strings.EqualFold(pinyin, "") {
 		return
